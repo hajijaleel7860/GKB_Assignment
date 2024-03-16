@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Input Form</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+}
+
+.container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="date"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.error {
+  color: red;
+  font-size: 0.8em;
+}
+
+button[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+}
+
+button[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h2>User Input Form</h2>
+  <form id="userForm">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="t1" required>
+    </div>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="t2" required>
+      <span id="emailError" class="error"></span>
+    </div>
+    <div class="form-group">
+      <label for="age">Age:</label>
+      <input type="number" id="age" name="t3" required>
+      <span id="ageError" class="error"></span>
+    </div>
+    <div class="form-group">
+      <label for="dob">Date of Birth:</label>
+      <input type="date" id="dob" name="t4" required>
+    </div>
+    <button type="submit"  value="submit" onclick="process.jsp">Submit</button>
+  </form>
+</div>
+
+<script>
+document.getElementById('userForm').addEventListener('submit', function(event) {
+  var emailInput = document.getElementById('t1'');
+  var ageInput = document.getElementById('t2');
+  var emailError = document.getElementById('t3');
+  var ageError = document.getElementById('t4');
+  
+  // Validate email format
+  if (!isValidEmail(emailInput.value)) {
+    emailError.textContent = 'Please enter a valid email address';
+    event.preventDefault(); // Prevent form submission
+  } else {
+    emailError.textContent = '';
+  }
+  
+  // Validate age is a positive integer
+  if (!isValidAge(ageInput.value)) {
+    ageError.textContent = 'Please enter a valid age (a positive integer)';
+    event.preventDefault(); // Prevent form submission
+  } else {
+    ageError.textContent = '';
+  }
+});
+
+function isValidEmail(email) {
+  // Regular expression for validating email format
+  var emailRegex = /\S+@\S+\.\S+/;
+  return emailRegex.test(email);
+}
+
+function isValidAge(age) {
+  // Check if age is a positive integer
+  return /^\d+$/.test(age) && parseInt(age, 10) > 0;
+}
+</script>
+
+</body>
+</html>
